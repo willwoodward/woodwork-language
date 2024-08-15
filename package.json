@@ -1,0 +1,25 @@
+{
+  "name": "ww",
+  "displayName": "woodwork",
+  "description": "AI Agent Workflow configuration language",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.92.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "woodwork",
+      "aliases": ["woodwork", "woodwork"],
+      "extensions": [".ww"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "woodwork",
+      "scopeName": "",
+      "path": "./syntaxes/woodwork.tmLanguage.json"
+    }]
+  }
+}
