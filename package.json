@@ -18,7 +18,7 @@
     }],
     "grammars": [{
       "language": "woodwork",
-      "scopeName": "",
+      "scopeName": "source.woodwork",
       "path": "./syntaxes/woodwork.tmLanguage.json"
     }]
   }

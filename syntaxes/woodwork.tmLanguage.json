@@ -7,26 +7,54 @@
 		},
 		{
 			"include": "#strings"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#operators"
 		}
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [{
-				"name": "keyword.control.woodwork",
-				"match": "\\b(if|while|for|return)\\b"
+				"match": "=\\s*(\\w+?)(?=\\s)\\s*(\\w+?)(?=\\s)",
+				"captures": {
+					"1": {
+					  	"name": "keyword.control"
+					},
+					"2": {
+						"name": "entity.name.class"
+					}
+				}
 			}]
 		},
 		"strings": {
-			"name": "string.quoted.double.woodwork",
+			"name": "string.quoted.double",
 			"begin": "\"",
 			"end": "\"",
 			"patterns": [
 				{
-					"name": "constant.character.escape.woodwork",
+					"name": "constant.character.escape",
 					"match": "\\\\."
 				}
 			]
+		},
+		"variables": {
+			"patterns": [{
+				"name": "variable.other",
+				"match": "(.*)(?=\\s*=)"
+			},	{
+				"name": "variable.other",
+				"match": ".*\\s*(?=:)"
+			}]
+		},
+		"operators": {
+			"patterns": [{
+				"name": "keyword.operator",
+				"match": ""
+			}]
 		}
 	},
-	"scopeName": ""
+	"scopeName": "source.woodwork"
 }
