@@ -2,6 +2,35 @@
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "woodwork",
 	"patterns": [
+        {
+            "name": "meta.block.yourlanguage",
+            "begin": "\\{",
+            "end": "\\}",
+            "patterns": [
+                {
+                    "include": "#strings"
+                },
+				{
+					"include": "#environment_variables"
+				},
+				{
+					"name": "woodwork.key",
+					"match": "(\\w+):",
+					"captures": {
+						"1": {
+							"name": "variable.other"
+						}
+				}},
+				{
+					"name": "woodwork.variable.value",
+					"match": ":\\s*(\\w+)",
+					"captures": {
+						"1": {
+							"name": "variable.other"
+						}
+				}}
+            ]
+        },
 		{
 			"include": "#keywords"
 		},
@@ -12,9 +41,12 @@
 			"include": "#variables"
 		},
 		{
+			"include": "#environment_variables"
+		},
+		{
 			"include": "#operators"
 		}
-	],
+    ],
 	"repository": {
 		"keywords": {
 			"patterns": [{
@@ -46,13 +78,19 @@
 				"match": "(.*)(?=\\s*=)"
 			},	{
 				"name": "variable.other",
-				"match": ".*\\s*(?=:)"
+				"match": "\\w*\\s*(?=:)"
+			}]
+		},
+		"environment_variables": {
+			"patterns": [{
+				"name": "string.quoted.single",
+				"match": "$\\w+"
 			}]
 		},
 		"operators": {
 			"patterns": [{
 				"name": "keyword.operator",
-				"match": ""
+				"match": ":"
 			}]
 		}
 	},
