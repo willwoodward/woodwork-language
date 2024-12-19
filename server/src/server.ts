@@ -41,7 +41,7 @@ connection.onInitialize((params: InitializeParams) => {
       textDocumentSync: TextDocumentSyncKind.Incremental,
       completionProvider: {
         resolveProvider: false,
-        triggerCharacters: [" "],
+        triggerCharacters: [" ", "\b"],
       },
     },
   };
@@ -61,7 +61,7 @@ connection.onCompletion((params: CompletionParams) => {
   if (document) {
     const position = params.position;
     const textBeforeCursor = document.getText({
-      start: { line: position.line, character: position.character - 2 },
+      start: { line: position.line, character: 0 },
       end: { line: position.line, character: position.character },
     });
 
@@ -69,19 +69,47 @@ connection.onCompletion((params: CompletionParams) => {
     const suggestions: CompletionItem[] = [];
 
     // Suggest keyword1
-    if (textBeforeCursor === "= ") {
-      const keyword1 = 'keyword1_1';  // You can dynamically choose based on context
-      const keyword2 = 'keyword2_1';  // Same here
-
-      if (predefinedCompletions[keyword1] && predefinedCompletions[keyword1][keyword2]) {
-        predefinedCompletions[keyword1][keyword2].forEach(key => {
-          suggestions.push({
-            label: key,
-            kind: CompletionItemKind.Property,
-          });
+    if (textBeforeCursor.slice(-2) === "= ") {
+      for (let keyword1 in predefinedCompletions) {
+        suggestions.push({
+          label: keyword1,
+          kind: CompletionItemKind.Class,
         });
       }
     }
+
+    // Suggest keyword2
+    const regex = /=\s*([a-zA-Z0-9_]+)\s*/;
+    const match = regex.exec(textBeforeCursor);
+    if (match?.[1]) {
+      const keyword1 = match[1]
+
+      if (keyword1 && predefinedCompletions[keyword1]) {
+        for (const keyword2 in predefinedCompletions[keyword1]) {
+          suggestions.push({
+            label: keyword2,
+            kind: CompletionItemKind.Class,
+          });
+        }
+      }
+    }
+
+    // Suggest keys
+
+    // // Suggest keyword1
+    // if (textBeforeCursor === "= ") {
+    //   const keyword1 = 'keyword1_1';  // You can dynamically choose based on context
+    //   const keyword2 = 'keyword2_1';  // Same here
+
+    //   if (predefinedCompletions[keyword1] && predefinedCompletions[keyword1][keyword2]) {
+    //     predefinedCompletions[keyword1][keyword2].forEach(key => {
+    //       suggestions.push({
+    //         label: key,
+    //         kind: CompletionItemKind.Property,
+    //       });
+    //     });
+    //   }
+    // }
 
     // Suggest keyword2
 

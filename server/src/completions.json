@@ -1,11 +1,24 @@
 {
-    "keyword1_1": {
-      "keyword2_1": ["key1", "key69"],
-      "keyword2_2": ["key3", "key4"]
+    "api": {
+        "functions": [],
+        "web": []
     },
-    "keyword1_2": {
-      "keyword2_1": ["key5", "key6"],
-      "keyword2_3": ["key7"]
+    "decomposer": {
+        "llm": []
+    },
+    "input": {
+        "command_line": []
+    },
+    "knowledge_base": {
+        "chroma": [],
+        "neo4j": [],
+        "text_file": []
+    },
+    "llm": {
+        "openai": [],
+        "hugging_face": []
+    },
+    "memory": {
+        "short_term": []
     }
-  }
-  
+}
