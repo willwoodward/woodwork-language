@@ -5,6 +5,10 @@ import {
   InitializeParams,
   TextDocumentSyncKind,
   InitializeResult,
+  CompletionItem,
+  CompletionItemKind,
+  CompletionParams,
+  TextDocumentPositionParams,
 } from "vscode-languageserver/node";
 
 import { TextDocument } from "vscode-languageserver-textdocument";
@@ -20,16 +24,49 @@ connection.onInitialize((params: InitializeParams) => {
   const result: InitializeResult = {
     capabilities: {
       textDocumentSync: TextDocumentSyncKind.Incremental,
+      completionProvider: {
+        resolveProvider: false,
+        triggerCharacters: [" "],
+      },
     },
   };
 
   return result;
 });
 
-documents.onDidChangeContent((change) => {
-  connection.window.showInformationMessage(
-    "onDidChangeContent: " + change.document.uri
-  );
+// documents.onDidChangeContent((change) => {
+//   connection.window.showInformationMessage(
+//     "STUFF CHANGED!: " + change.document.uri
+//   );
+// });
+
+connection.onCompletion((params: CompletionParams) => {
+  const document = documents.get(params.textDocument.uri);
+
+  if (document) {
+      const position = params.position;
+      const text = document.getText();
+
+      // Generate completion items (example: simple keyword completions)
+      const suggestions: CompletionItem[] = [];
+
+      // Add simple keywords as suggestions
+      suggestions.push({
+          label: 'function',
+          kind: CompletionItemKind.Keyword,
+      });
+      suggestions.push({
+          label: 'const',
+          kind: CompletionItemKind.Keyword,
+      });
+      suggestions.push({
+          label: 'let',
+          kind: CompletionItemKind.Keyword,
+      });
+
+      return { items: suggestions, isIncomplete: false };
+  }
+  return [];
 });
 
 // Make the text document manager listen on the connection
