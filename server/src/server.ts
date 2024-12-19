@@ -8,7 +8,6 @@ import {
   CompletionItem,
   CompletionItemKind,
   CompletionParams,
-  TextDocumentPositionParams,
 } from "vscode-languageserver/node";
 
 import { TextDocument } from "vscode-languageserver-textdocument";
@@ -79,7 +78,7 @@ connection.onCompletion((params: CompletionParams) => {
     }
 
     // Suggest keyword2
-    const regex = /=\s*([a-zA-Z0-9_]+)\s*/;
+    const regex = /=\s*([a-zA-Z0-9_]+)\s+(?!\w+)/;
     const match = regex.exec(textBeforeCursor);
     if (match?.[1]) {
       const keyword1 = match[1]
