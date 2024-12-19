@@ -2,6 +2,7 @@
   "name": "ww",
   "displayName": "woodwork",
   "description": "AI Agent Workflow configuration language",
+  "author": "Will Woodward",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.92.0"
@@ -10,16 +11,42 @@
     "Programming Languages"
   ],
   "contributes": {
-    "languages": [{
-      "id": "woodwork",
-      "aliases": ["woodwork", "woodwork"],
-      "extensions": [".ww"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "woodwork",
-      "scopeName": "source.woodwork",
-      "path": "./syntaxes/woodwork.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "woodwork",
+        "aliases": [
+          "woodwork",
+          "woodwork"
+        ],
+        "extensions": [
+          ".ww"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "woodwork",
+        "scopeName": "source.woodwork",
+        "path": "./syntaxes/woodwork.tmLanguage.json"
+      }
+    ]
+  },
+  "activationEvents": [
+    "onLanguage"
+  ],
+  "main": "./client/out/extension",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -b",
+    "watch": "tsc -b -w",
+    "postinstall": "cd client && npm install && cd ../server && npm install && cd .."
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.10",
+    "typescript": "^5.7.2",
+    "vscode-languageclient": "^9.0.1",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.12"
   }
 }

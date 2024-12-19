@@ -6,7 +6,9 @@
     "outDir": "out",
     "rootDir": "src",
     "sourceMap": true,
-    "incremental": true
+    "incremental": true,
+    "types": ["node"],
+    "typeRoots": ["../../node_modules/@types"]
   },
   "include": ["src"],
   "exclude": ["node_modules", ".vscode-test"]
