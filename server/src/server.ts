@@ -13,6 +13,21 @@ import {
 
 import { TextDocument } from "vscode-languageserver-textdocument";
 
+import * as fs from 'fs';
+import path from 'path';
+
+// Load the JSON file containing your predefined completions
+const completionsFilePath = path.resolve(__dirname, '../src/completions.json');
+let predefinedCompletions: { [key1: string]: { [key2: string]: string[] } };
+
+try {
+  const data = fs.readFileSync(completionsFilePath, 'utf8');
+  predefinedCompletions = JSON.parse(data);
+} catch (error) {
+  console.error('Failed to load completions.json', error);
+  predefinedCompletions = {};
+}
+
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
 const connection = createConnection(ProposedFeatures.all);
@@ -44,27 +59,49 @@ connection.onCompletion((params: CompletionParams) => {
   const document = documents.get(params.textDocument.uri);
 
   if (document) {
-      const position = params.position;
-      const text = document.getText();
+    const position = params.position;
+    const textBeforeCursor = document.getText({
+      start: { line: position.line, character: position.character - 2 },
+      end: { line: position.line, character: position.character },
+    });
 
-      // Generate completion items (example: simple keyword completions)
-      const suggestions: CompletionItem[] = [];
+    // Generate completion items (example: simple keyword completions)
+    const suggestions: CompletionItem[] = [];
 
-      // Add simple keywords as suggestions
-      suggestions.push({
-          label: 'function',
-          kind: CompletionItemKind.Keyword,
-      });
-      suggestions.push({
-          label: 'const',
-          kind: CompletionItemKind.Keyword,
-      });
-      suggestions.push({
-          label: 'let',
-          kind: CompletionItemKind.Keyword,
-      });
+    // Suggest keyword1
+    if (textBeforeCursor === "= ") {
+      const keyword1 = 'keyword1_1';  // You can dynamically choose based on context
+      const keyword2 = 'keyword2_1';  // Same here
 
-      return { items: suggestions, isIncomplete: false };
+      if (predefinedCompletions[keyword1] && predefinedCompletions[keyword1][keyword2]) {
+        predefinedCompletions[keyword1][keyword2].forEach(key => {
+          suggestions.push({
+            label: key,
+            kind: CompletionItemKind.Property,
+          });
+        });
+      }
+    }
+
+    // Suggest keyword2
+
+    // Suggest keys
+
+    // // Add simple keywords as suggestions
+    // suggestions.push({
+    //   label: 'function',
+    //   kind: CompletionItemKind.Keyword,
+    // });
+    // suggestions.push({
+    //   label: 'const',
+    //   kind: CompletionItemKind.Keyword,
+    // });
+    // suggestions.push({
+    //   label: 'let',
+    //   kind: CompletionItemKind.Keyword,
+    // });
+
+    return { items: suggestions, isIncomplete: false };
   }
   return [];
 });
