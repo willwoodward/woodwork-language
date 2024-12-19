@@ -40,7 +40,7 @@ connection.onInitialize((params: InitializeParams) => {
       textDocumentSync: TextDocumentSyncKind.Incremental,
       completionProvider: {
         resolveProvider: false,
-        triggerCharacters: [" ", "\b"],
+        triggerCharacters: [" ", "\n", "\t"],
       },
     },
   };
@@ -61,6 +61,10 @@ connection.onCompletion((params: CompletionParams) => {
     const position = params.position;
     const textBeforeCursor = document.getText({
       start: { line: position.line, character: 0 },
+      end: { line: position.line, character: position.character },
+    });
+    const textChunkBeforeCursor = document.getText({
+      start: { line: 0, character: 0 },
       end: { line: position.line, character: position.character },
     });
 
@@ -94,6 +98,22 @@ connection.onCompletion((params: CompletionParams) => {
     }
 
     // Suggest keys
+    const keys_regex = /=\s*([a-zA-Z0-9_]+)\s+(\w+)\s*\{\s*(?:[\w-]+:\s*(?:[\w-]+|".*?")\s*)*$/;
+    const keys_match = keys_regex.exec(textChunkBeforeCursor);
+
+    if (keys_match?.[1] && keys_match?.[2]) {
+      const keyword1 = keys_match[1]
+      const keyword2 = keys_match[2]
+
+      if (keyword2 && predefinedCompletions[keyword1][keyword2]) {
+        for (const key of predefinedCompletions[keyword1][keyword2]) {
+          suggestions.push({
+            label: key,
+            kind: CompletionItemKind.Variable,
+          });
+        }
+      }
+    }
 
     // // Suggest keyword1
     // if (textBeforeCursor === "= ") {

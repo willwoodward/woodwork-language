@@ -4,7 +4,7 @@
         "web": []
     },
     "decomposer": {
-        "llm": []
+        "llm": ["testing", "testing2"]
     },
     "input": {
         "command_line": []
