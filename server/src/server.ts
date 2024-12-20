@@ -8,7 +8,6 @@ import {
   CompletionItem,
   CompletionItemKind,
   CompletionParams,
-  InsertTextFormat,
 } from "vscode-languageserver/node";
 
 import { TextDocument } from "vscode-languageserver-textdocument";
@@ -78,7 +77,7 @@ connection.onCompletion((params: CompletionParams) => {
         suggestions.push({
           label: keyword1,
           kind: CompletionItemKind.Class,
-          insertText: `${keyword1} `,
+          insertText: `${keyword1}`,
         })
       }
     }
@@ -143,39 +142,6 @@ connection.onCompletion((params: CompletionParams) => {
         }
       }
     }
-
-    // // Suggest keyword1
-    // if (textBeforeCursor === "= ") {
-    //   const keyword1 = 'keyword1_1';  // You can dynamically choose based on context
-    //   const keyword2 = 'keyword2_1';  // Same here
-
-    //   if (predefinedCompletions[keyword1] && predefinedCompletions[keyword1][keyword2]) {
-    //     predefinedCompletions[keyword1][keyword2].forEach(key => {
-    //       suggestions.push({
-    //         label: key,
-    //         kind: CompletionItemKind.Property,
-    //       });
-    //     });
-    //   }
-    // }
-
-    // Suggest keyword2
-
-    // Suggest keys
-
-    // // Add simple keywords as suggestions
-    // suggestions.push({
-    //   label: 'function',
-    //   kind: CompletionItemKind.Keyword,
-    // });
-    // suggestions.push({
-    //   label: 'const',
-    //   kind: CompletionItemKind.Keyword,
-    // });
-    // suggestions.push({
-    //   label: 'let',
-    //   kind: CompletionItemKind.Keyword,
-    // });
 
     return { items: suggestions, isIncomplete: false };
   }

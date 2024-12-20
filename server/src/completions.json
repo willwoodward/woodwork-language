@@ -1,22 +1,22 @@
 {
     "api": {
-        "functions": [],
-        "web": []
+        "functions": ["path"],
+        "web": ["documentation", "url"]
     },
     "decomposer": {
-        "llm": ["testing", "testing2"]
+        "llm": ["api_key", "knowledge_base"]
     },
     "input": {
         "command_line": []
     },
     "knowledge_base": {
-        "chroma": [],
-        "neo4j": [],
-        "text_file": []
+        "chroma": ["client", "path"],
+        "neo4j": ["api_key", "password", "uri", "user"],
+        "text_file": ["path"]
     },
     "llm": {
-        "openai": [],
-        "hugging_face": []
+        "openai": ["api_key", "model", "knowledge_base"],
+        "hugging_face": ["api_key", "model", "knowledge_base"]
     },
     "memory": {
         "short_term": []
