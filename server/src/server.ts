@@ -8,6 +8,7 @@ import {
   CompletionItem,
   CompletionItemKind,
   CompletionParams,
+  InsertTextFormat,
 } from "vscode-languageserver/node";
 
 import { TextDocument } from "vscode-languageserver-textdocument";
@@ -77,7 +78,8 @@ connection.onCompletion((params: CompletionParams) => {
         suggestions.push({
           label: keyword1,
           kind: CompletionItemKind.Class,
-        });
+          insertText: `${keyword1} `,
+        })
       }
     }
 
@@ -92,6 +94,7 @@ connection.onCompletion((params: CompletionParams) => {
           suggestions.push({
             label: keyword2,
             kind: CompletionItemKind.Class,
+            insertText: `${keyword2} `
           });
         }
       }
@@ -134,6 +137,7 @@ connection.onCompletion((params: CompletionParams) => {
             suggestions.push({
               label: key,
               kind: CompletionItemKind.Variable,
+              insertText: `${key}: `
             });
           }
         }
