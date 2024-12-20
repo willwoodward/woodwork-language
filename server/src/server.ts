@@ -105,12 +105,37 @@ connection.onCompletion((params: CompletionParams) => {
       const keyword1 = keys_match[1]
       const keyword2 = keys_match[2]
 
+      // Find the block of curly braces surrounding the cursor
+      const textBeforeCursor = document.getText({ start: { line: 0, character: 0 }, end: position });
+      const textAfterCursor = document.getText({ start: position, end: { line: document.lineCount, character: 0 } });
+
+      const startBraceIndex = textBeforeCursor.lastIndexOf("{");
+      const endBraceIndex = textAfterCursor.indexOf("}");
+
+      let currentBlock = "";
+      if (startBraceIndex !== -1 && endBraceIndex !== -1) {
+        currentBlock = textBeforeCursor.slice(startBraceIndex) + textAfterCursor.slice(0, endBraceIndex + 1);
+      }
+
+      const existing_keys: string[] = [];
+      if (currentBlock) {
+        // Find keys within the current block
+        const keyRegex = /\b(\w+)\b\s*:/g;
+        let keyMatch;
+        while ((keyMatch = keyRegex.exec(currentBlock)) !== null) {
+          existing_keys.push(keyMatch[1]); // Add the captured key
+        }
+      }
+
       if (keyword2 && predefinedCompletions[keyword1][keyword2]) {
         for (const key of predefinedCompletions[keyword1][keyword2]) {
-          suggestions.push({
-            label: key,
-            kind: CompletionItemKind.Variable,
-          });
+          // Check if the key is not in the existing_keys array
+          if (!existing_keys.includes(key)) {
+            suggestions.push({
+              label: key,
+              kind: CompletionItemKind.Variable,
+            });
+          }
         }
       }
     }
