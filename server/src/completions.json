@@ -4,7 +4,7 @@
         "web": ["documentation", "url"]
     },
     "decomposer": {
-        "llm": ["api_key", "knowledge_base"]
+        "llm": ["api_key", "tools", "knowledge_base"]
     },
     "input": {
         "command_line": []

@@ -29,3 +29,6 @@
 * To share your extension with the world, read on https://code.visualstudio.com/docs about publishing an extension.
 
 `npm run compile`
+
+`vsce package`
+`code --install-extension ww-0.0.1.vsix`
