@@ -31,11 +31,8 @@ jobs:
         npm install -g vsce
         vsce package
 
-    - name: List packaged extension
-      run: ls *.vsix
-
     - name: Publish the extension
       env:
         VSCE_PAT: ${{ secrets.VSCE_PAT }} # Your Personal Access Token stored as a secret
       run: |
-        vsce publish "$(ls *.vsix)"
+        vsce publish --verbose "$(ls *.vsix)"
