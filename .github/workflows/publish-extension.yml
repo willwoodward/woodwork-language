@@ -35,4 +35,4 @@ jobs:
       env:
         VSCE_PAT: ${{ secrets.VSCE_PAT }} # Your Personal Access Token stored as a secret
       run: |
-        vsce publish --verbose "$(ls *.vsix)"
+        vsce publish
