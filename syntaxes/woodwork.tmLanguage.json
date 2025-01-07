@@ -67,8 +67,13 @@
 		"keyword2": {
 			"patterns": [
 				{
-					"name": "entity.name.class",
-					"match": "(?<=\\s)\\w+(?=\\s)"
+					"name": "woodwork.keyword2",
+					"match": "(?<=\\w+\\s*=\\s*\\w+\\s*)\\w+",
+					"captures": {
+						"0": {
+							"name": "entity.name.class"
+						}
+					}
 				}
 			]
 		},
