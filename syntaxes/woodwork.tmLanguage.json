@@ -3,37 +3,8 @@
 	"name": "woodwork",
 	"patterns": [
 		{
-			"include": "#environment_variables"
+			"include": "#nested_dict"
 		},
-        {
-            "name": "meta.block.yourlanguage",
-            "begin": "\\{",
-            "end": "\\}",
-            "patterns": [
-                {
-                    "include": "#strings"
-                },
-				{
-					"include": "#environment_variables"
-				},
-				{
-					"name": "woodwork.key",
-					"match": "(\\w+):",
-					"captures": {
-						"1": {
-							"name": "variable.other"
-						}
-				}},
-				{
-					"name": "woodwork.variable.value",
-					"match": ":\\s*(\\w+)",
-					"captures": {
-						"1": {
-							"name": "variable.other"
-						}
-				}}
-            ]
-        },
 		{
 			"include": "#keyword1"
 		},
@@ -44,6 +15,9 @@
 			"include": "#strings"
 		},
 		{
+			"include": "#environment_variables"
+		},
+		{
 			"include": "#variables"
 		},
 		{
@@ -51,6 +25,42 @@
 		}
     ],
 	"repository": {
+		"nested_dict": {
+			"patterns": [
+				{
+					"name": "meta.block.yourlanguage",
+					"begin": "\\{",
+					"end": "\\}",
+					"patterns": [
+						{
+							"include": "#strings"
+						},
+						{
+							"include": "#environment_variables"
+						},
+						{
+							"name": "woodwork.key",
+							"match": "(\\w+):",
+							"captures": {
+								"1": {
+									"name": "variable.other"
+								}
+						}},
+						{
+							"name": "woodwork.variable.value",
+							"match": ":\\s*(\\w+)",
+							"captures": {
+								"1": {
+									"name": "variable.other"
+								}
+						}},
+						{
+							"include": "#nested_dict"
+						}
+					]
+				}
+			]
+		},
 		"keyword1": {
 			"patterns": [
 				{
