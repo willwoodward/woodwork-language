@@ -33,9 +33,6 @@
       }
     ]
   },
-  "activationEvents": [
-    "onLanguage"
-  ],
   "main": "./client/out/extension",
   "scripts": {
     "vscode:prepublish": "npm run compile",

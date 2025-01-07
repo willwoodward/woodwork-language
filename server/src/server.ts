@@ -57,6 +57,10 @@ connection.onInitialize((params: InitializeParams) => {
 connection.onCompletion((params: CompletionParams) => {
   const document = documents.get(params.textDocument.uri);
 
+  if (!document || document.languageId !== "woodwork") {
+    return []; // Ignore non-woodwork files
+  }
+
   if (document) {
     const position = params.position;
     const textBeforeCursor = document.getText({
