@@ -32,7 +32,13 @@
             ]
         },
 		{
-			"include": "#keywords"
+			"include": "#keyword1"
+		},
+		{
+			"include": "#keyword2"
+		},
+		{
+			"include": "#environment_variables"
 		},
 		{
 			"include": "#strings"
@@ -41,25 +47,30 @@
 			"include": "#variables"
 		},
 		{
-			"include": "#environment_variables"
-		},
-		{
 			"include": "#operators"
 		}
     ],
 	"repository": {
-		"keywords": {
-			"patterns": [{
-				"match": "=\\s*(\\w+?)(?=\\s)\\s*(\\w+?)(?=\\s)",
-				"captures": {
-					"1": {
-					  	"name": "keyword.control"
-					},
-					"2": {
-						"name": "entity.name.class"
+		"keyword1": {
+			"patterns": [
+				{
+					"name": "woodwork.keyword1",
+					"match": "=\\s*(\\w+)",
+					"captures": {
+						"1": {
+							"name": "keyword.control"
+						}
 					}
 				}
-			}]
+			]
+		},
+		"keyword2": {
+			"patterns": [
+				{
+					"name": "entity.name.class",
+					"match": "(?<=\\s)\\w+(?=\\s)"
+				}
+			]
 		},
 		"strings": {
 			"name": "string.quoted.double",
@@ -83,7 +94,7 @@
 		},
 		"environment_variables": {
 			"patterns": [{
-				"name": "string.quoted.single",
+				"name": "support.constant.environment",
 				"match": "$\\w+"
 			}]
 		},
