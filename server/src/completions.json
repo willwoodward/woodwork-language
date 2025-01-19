@@ -4,19 +4,19 @@
         "web": ["documentation", "url"]
     },
     "decomposer": {
-        "llm": ["api_key", "tools", "knowledge_base"]
+        "llm": ["api_key", "cache", "tools", "knowledge_base"]
     },
     "input": {
-        "command_line": []
+        "command_line": ["to"]
     },
     "knowledge_base": {
-        "chroma": ["client", "path"],
+        "chroma": ["api_key", "client", "file_to_embed", "path"],
         "neo4j": ["api_key", "password", "uri", "user"],
         "text_file": ["path"]
     },
     "llm": {
-        "openai": ["api_key", "model", "knowledge_base"],
-        "hugging_face": ["api_key", "model", "knowledge_base"]
+        "openai": ["api_key", "memory", "model", "knowledge_base"],
+        "hugging_face": ["api_key", "memory", "model", "knowledge_base"]
     },
     "memory": {
         "short_term": []
