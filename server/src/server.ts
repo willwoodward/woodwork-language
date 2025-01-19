@@ -104,7 +104,7 @@ connection.onCompletion((params: CompletionParams) => {
     }
 
     // Suggest keys
-    const keys_regex = /=\s*([a-zA-Z0-9_]+)\s+(\w+)\s*\{\s*(?:[\w-]+:\s*(?:[\w-]+|".*?")\s*)*$/;
+    const keys_regex = /=\s*([a-zA-Z0-9_]+)\s+(\w+)\s*\{\s*(?:[\w-]+:\s*(?:[\w-$]+|".*?")\s*)*$/;
     const keys_match = keys_regex.exec(textChunkBeforeCursor);
 
     if (keys_match?.[1] && keys_match?.[2]) {
