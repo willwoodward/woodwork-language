@@ -3,7 +3,7 @@
   "displayName": "Woodwork",
   "description": "AI Agent Workflow configuration language",
   "author": "Will Woodward",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "publisher": "will-woodward",
   "engines": {
     "vscode": "^1.92.0"
