@@ -3,11 +3,15 @@
         "functions": ["path"],
         "web": ["documentation", "url"]
     },
-    "decomposer": {
-        "llm": ["api_key", "cache", "tools", "knowledge_base"]
+    "agent": {
+        "llm": ["model", "planning", "prompt", "tools"]
     },
     "input": {
+        "api": ["port", "to", "workflow_entrypoints"],
         "command_line": ["to"]
+    },
+    "environment": {
+        "coding": ["repo_url", "local_path", "dockerfile", "image_name", "container_name", "environment_variables", "startup_scripts", "setup_scripts"]
     },
     "knowledge_base": {
         "chroma": ["api_key", "client", "file_to_embed", "path"],
@@ -15,10 +19,12 @@
         "text_file": ["path"]
     },
     "llm": {
-        "openai": ["api_key", "memory", "model", "knowledge_base"],
-        "hugging_face": ["api_key", "memory", "model", "knowledge_base"]
+        "claude": ["api_key", "model"],
+        "hugging_face": ["api_key", "model", "knowledge_base"],
+        "ollama": ["model"],
+        "openai": ["api_key", "model", "knowledge_base"]
     },
-    "memory": {
-        "short_term": []
+    "mcp": {
+        "server": ["server", "version", "toolsets", "env"]
     }
 }
